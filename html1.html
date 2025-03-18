@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Comparison</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        .comparison th {
+            background-color: #ff9800;
+        }
+    </style>
+</head>
+<body>
+    <h1>Price Comparison</h1>
+    
+    <form method="POST">
+        <input type="text" name="product" placeholder="Enter product name..." required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if amazon %}
+        <h2>Amazon Results</h2>
+        <table>
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Link</th>
+            </tr>
+            {% for item in amazon %}
+            <tr>
+                <td>{{ item["Product Name"] }}</td>
+                <td>₹{{ item["Price"] }}</td>
+                <td><a href="{{ item['Link'] }}" target="_blank">View</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if flipkart %}
+        <h2>Flipkart Results</h2>
+        <table>
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Link</th>
+            </tr>
+            {% for item in flipkart %}
+            <tr>
+                <td>{{ item["Product Name"] }}</td>
+                <td>₹{{ item["Price"] }}</td>
+                <td><a href="{{ item['Link'] }}" target="_blank">View</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if myntra %}
+        <h2>Myntra Results</h2>
+        <table>
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Link</th>
+            </tr>
+            {% for item in myntra %}
+            <tr>
+                <td>{{ item["Product Name"] }}</td>
+                <td>₹{{ item["Price"] }}</td>
+                <td><a href="{{ item['Link'] }}" target="_blank">View</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if comparison %}
+        <h2>Price Comparison</h2>
+        <table class="comparison">
+            <tr>
+                <th>Product Name</th>
+                <th>Flipkart Price</th>
+                <th>Amazon Price</th>
+                <th>Myntra Price</th>
+            </tr>
+            {% for item in comparison %}
+            <tr>
+                <td>{{ item["Product Name"] }}</td>
+                <td>₹{{ item["Flipkart Price"] }}</td>
+                <td>₹{{ item["Amazon Price"] }}</td>
+                <td>₹{{ item["Myntra Price"] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
